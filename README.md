@@ -1,4 +1,6 @@
+![](https://img.shields.io/badge/Devdrimmorais-drikut-ff69b4)
 ![](https://img.shields.io/badge/license-MIT-green/)
+![](https://img.shields.io/github/followers/drimmorais?style=social)
 # Example app with styled-components
 
 
