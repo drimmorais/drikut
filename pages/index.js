@@ -21,12 +21,47 @@ function ProfileSideBar(prop) {
 export default function Home() {
   const githubUser = 'drimmorais';
   const boxes = ['Pessoas da Comunidade', 'Comunidades']
-  const favPeople = ['juunegreiros', 'omariosouto', 'peas', 'rafaballerini', 'marcobrunodev', 'felipefialho']
+  const favPeople = [{
+    name: 'Rachel',
+    url: 'https://1.bp.blogspot.com/-Q3u-d-t4Bps/WTWBnKD60nI/AAAAAAAAKps/G3ZP_eG_BHQmXBhSl3UNr7seTs65qOS7gCLcB/s640/f1cfe9c3de8c891b1f646c3a51973b15.jpg'
+  },
+  {
+    name: 'Mônica',
+    url: 'https://i.pinimg.com/474x/96/32/75/9632754507da638b7060124ba499ce8e.jpg'
+  },
+  {
+    name: 'Phoebe',
+    url: 'https://a1cf74336522e87f135f-2f21ace9a6cf0052456644b80fa06d4f.ssl.cf2.rackcdn.com/images/characters_opt/p-friends-lisa-kudrow.jpg'
+  },
+  {
+    name: 'Joey',
+    url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpIeRwCr7hFlk0cDDPg8f0X-_XjMN_ZV891UY47byaZAjgpDZ_e96jXUenJEcZ_txWpAM&usqp=CAU'
+  },
+  {
+    name: 'Chandler',
+    url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMg-wOgO0iZsmZfQ7bAfVodKN_fbjEFHDyDr2ypabQsD8PNGhE7HOdEWMUl4F3qMTuG5U&usqp=CAU'
+  },
+  {
+    name: 'Ross',
+    url: 'https://memegenerator.net/img/images/71597808.jpg'
+  },
+]
   const [comunidades, setCommunity] = React.useState([{
     id: '1254411223645411232',
     title: 'Eu odeio acordar cedo',
     image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg'
+  },
+  {
+    id: '1254411223645411232',
+    title: 'Deus me disse desce e arrasa',
+    image: 'https://img10.orkut.br.com/community/15cf893f0e0d466dd42da2e37d04bde6.jpeg'
+  },
+  {
+    id: '1254411223645411232',
+    title: 'A cara do filho da Deise',
+    image: 'https://i.ibb.co/4t3PJkK/download.jpg'
   }]);
+  
   console.log(comunidades)
   return (
     <>
@@ -71,39 +106,6 @@ export default function Home() {
           </Box>
         </div>
         <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
-          {/* <ProfileRelationsBoxWrapper >
-            <h2 class="smallTitle">Pessoas da Comunidade ({favPeople.length})</h2>
-            <ul>
-              {favPeople.map((person) => {
-                return (
-                  <li key={person}>
-                    <a href={`/users/${person}`} >
-                      <img src={`https://github.com/${person}.png`} />
-                      <span>{person}</span>
-                    </a>
-                  </li>
-
-                )
-              })}
-            </ul>
-          </ProfileRelationsBoxWrapper>
-
-          <ProfileRelationsBoxWrapper>
-            <h2 class="smallTitle">Comunidades ({comunidades.length})</h2>
-            <ul>
-              {comunidades.map((item) => {
-                return (
-                  <li>
-                    <a href={`/users/${item.title}`} key={item.id}>
-                      <img src={item.image} />
-                      <span>{item.title}</span>
-                    </a>
-                  </li>
-                )
-              })}
-            </ul>
-          </ProfileRelationsBoxWrapper> */}
-
           {boxes.map((box) => {
             return (
               <ProfileRelationsBoxWrapper>
@@ -112,9 +114,9 @@ export default function Home() {
                   {favPeople.map((person) => {
                     return (
                       <li key={person}>
-                        <a href={`/users/${person}`} >
-                          <img src={`https://github.com/${person}.png`} />
-                          <span>{person}</span>
+                        <a href={`/users/${person.name}`} >
+                          <img src={person.url} />
+                          <span>{person.name}</span>
                         </a>
                       </li>
 

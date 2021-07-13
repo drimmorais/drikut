@@ -1,7 +1,11 @@
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import { DrikutStyles } from '../src/lib/DrikutCommons'
 
+
 const GlobalStyle = createGlobalStyle`
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
 
   *{
     margin: 0;
@@ -10,11 +14,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background-color: #D9E6F6;
-    font-family: sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    background-image: url("https://images3.alphacoders.com/795/thumb-1920-795621.jpg")
   }
 
   #_next {

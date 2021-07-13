@@ -1,14 +1,17 @@
 import styled from 'styled-components';
 
+
 export const Box = styled.div`
-  background: #FFFFFF;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
+  background: #FAFAFA;
   border-radius: 8px;
   padding: 16px;
   /* CSS Pré-Pronto */
   margin-bottom: 10px;
   .boxLink {
     font-size: 14px;
-    color: #2E7BB4;
+    color: #5F1432;
     text-decoration: none;
     font-weight: 800;
   }
@@ -33,13 +36,14 @@ export const Box = styled.div`
     margin-top: 12px;
     margin-bottom: 8px;
     border-color: transparent;
-    border-bottom-color: #ECF2FA;
+    border-bottom-color: #D2B5BF;
   }
   input {
     width: 100%;
-    background-color: #F4F4F4;
+    background-color: #D2B5BF;
     color: #333333;
     border: 0;
+    font-family: 'Montserrat', sans-serif;
     padding: 14px 16px;
     margin-bottom: 14px;
     border-radius: 10000px;
@@ -51,8 +55,9 @@ export const Box = styled.div`
   button {
     border: 0;
     padding: 8px 12px;
-    color: #FFFFFF;
+    color: #FAFAFA;
     border-radius: 10000px;
-    background-color: #6F92BB;
+    background-color: #5F1432;
+    font-family: 'Montserrat', sans-serif;
   }
 `; 

@@ -54,7 +54,7 @@ export function DrikutMenu({ githubUser }) {
 }
 DrikutMenu.Wrapper = styled.header`
   width: 100%;
-  background-color: #308BC5;
+  background-color: #5F1432;
   .drikutMenuProfileSidebar {
     background: white;
     position: fixed;
@@ -93,7 +93,7 @@ DrikutMenu.Wrapper = styled.header`
     }
   }
   .container {
-    background-color: #308BC5;
+    background-color: #5F1432;
     padding: 7px 16px;
     max-width: 1110px;
     margin: auto;
@@ -126,7 +126,7 @@ DrikutMenu.Wrapper = styled.header`
         text-decoration: none;
         &:after {
           content: " ";
-          background-color: #5292C1;
+          background-color: #5F1432;
           display: block;
           position: absolute;
           width: 1px;
@@ -140,7 +140,7 @@ DrikutMenu.Wrapper = styled.header`
     }
     input {
       color: #ffffff;
-      background: #5579A1;
+      background: #71539D;
       padding: 10px 42px;
       border: 0;
       background-image: url(${`${BASE_URL}/icons/search.svg`});
@@ -156,7 +156,7 @@ DrikutMenu.Wrapper = styled.header`
   }
 `;
 DrikutMenu.Logo = styled.img`
-  background-color: #ffffff;
+  background-color: #FAFAFA;
   padding: 5px 14px;
   border-radius: 1000px;
   height: 35px;
@@ -222,7 +222,7 @@ export function DrikutProfileSidebarMenuDefault() {
 DrikutProfileSidebarMenuDefault.Wrapper = styled.div`
   a {
     font-size: 12px;
-    color: #2E7BB4;
+    color: #5F1432;
     margin-bottom: 16px;
     display: flex;
     align-items: center;
