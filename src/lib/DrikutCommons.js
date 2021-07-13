@@ -24,7 +24,7 @@ export function DrikutMenu({ githubUser }) {
   return (
     <DrikutMenu.Wrapper isMenuOpen={isMenuOpen}>
       <div className="container">
-        <DrikutMenu.Logo src={`${BASE_URL}/logo.svg`} />
+        <DrikutMenu.Logo src="https://i.ibb.co/3zsnxs6/image-6.png" />
 
         <nav style={{ flex: 1 }}>
           {[{ name: 'Inicio', slug: '/'}, {name: 'Amigos', slug: '/amigos'}, {name: 'Comunidades', slug: '/comunidades'}].map((menuItem) => (
@@ -39,7 +39,7 @@ export function DrikutMenu({ githubUser }) {
             Sair
           </a>
           <div>
-            <input placeholder="Pesquisar no Orkut" />
+            <input placeholder="Pesquisar no Drikut" />
           </div>
         </nav>
 
@@ -157,9 +157,9 @@ DrikutMenu.Wrapper = styled.header`
 `;
 DrikutMenu.Logo = styled.img`
   background-color: #ffffff;
-  padding: 9px 14px;
+  padding: 5px 14px;
   border-radius: 1000px;
-  height: 34px;
+  height: 35px;
 `;
 
 function DrikutMenuProfileSidebar({ githubUser }) {
@@ -240,6 +240,7 @@ DrikutProfileSidebarMenuDefault.Wrapper = styled.div`
 // OrkutNostalgicIconSet
 // ================================================================================================================
 export function OrkutNostalgicIconSet(props) {
+  console.log(props)
   return (
     <OrkutNostalgicIconSet.List>
       {[
@@ -264,7 +265,7 @@ export function OrkutNostalgicIconSet(props) {
         { name: 'Legal', slug: 'legal', icon: 'cool' },
         { name: 'Sexy', slug: 'sexy', icon: 'heart' },
       ].map(({ name, slug, icon }) => {
-        const total = props[slug] ? props[slug] : 2;
+        const total = props[slug] ? props[slug] : 3;
         return (
           <li key={`orkut__icon_set__${slug}`}>
             <span className="OrkutNostalgicIconSet__title">
