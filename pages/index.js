@@ -18,6 +18,26 @@ function ProfileSideBar(prop) {
   )
 }
 
+function ProfileRelationsBox(props) {
+  return (
+    <ProfileRelationsBoxWrapper>
+      <h2 className="smallTitle">{props.title} ({props.items.length})</h2>
+      {/* <ul>
+        {seguidores.map((item) => {
+          return (
+            <li key={item}>
+              <a href={`https://api.github.com/${item}.png`}>
+                <img src={ } />
+                <span>{item}</span>
+              </a>
+            </li>
+          )
+        })}
+      </ul> */}
+    </ProfileRelationsBoxWrapper>
+  )
+}
+
 export default function Home() {
   const githubUser = 'drimmorais';
   const boxes = ['Pessoas da Comunidade', 'Comunidades']
@@ -45,7 +65,7 @@ export default function Home() {
     name: 'Ross',
     url: 'https://memegenerator.net/img/images/71597808.jpg'
   },
-]
+  ]
   const [comunidades, setCommunity] = React.useState([{
     id: '1254411223645411232',
     title: 'Eu odeio acordar cedo',
@@ -61,8 +81,17 @@ export default function Home() {
     title: 'A cara do filho da Deise',
     image: 'https://i.ibb.co/4t3PJkK/download.jpg'
   }]);
-  
-  console.log(comunidades)
+  const [seguidores, setSeguidores] = React.useState([]);
+  React.useEffect(() => {
+    fetch('https://api.github.com/users/drimmorais/followers')
+      .then((res) => {
+        return res.json();
+      })
+      .then((resComplete) => {
+        setSeguidores(resComplete);
+      })
+  }, [])
+  console.log(seguidores)
   return (
     <>
       <DrikutMenu githubUser={githubUser} />
@@ -109,7 +138,7 @@ export default function Home() {
           {boxes.map((box) => {
             return (
               <ProfileRelationsBoxWrapper>
-                <h2 class="smallTitle"> {box} ({box === 'Pessoas da Comunidade' ? favPeople.length : comunidades.length})</h2>
+                <h2 className="smallTitle"> {box} ({box === 'Pessoas da Comunidade' ? favPeople.length : comunidades.length})</h2>
                 {box === 'Pessoas da Comunidade' ? <ul>
                   {favPeople.map((person) => {
                     return (
@@ -138,9 +167,24 @@ export default function Home() {
                 }
 
               </ProfileRelationsBoxWrapper>
+
             )
           })}
-
+          <ProfileRelationsBoxWrapper>
+          <h2 className="smallTitle"> Seguidores ({seguidores.length})</h2>
+            <ul>
+              {seguidores.map((item) => {
+                return (
+                  <li>
+                    <a href={item.html_url} key={item.id}>
+                      <img src={item.avatar_url} />
+                      <span>{item.login}</span>
+                    </a>
+                  </li>
+                )
+              })}
+            </ul>
+          </ProfileRelationsBoxWrapper>
         </div>
       </MainGrid>
     </>
