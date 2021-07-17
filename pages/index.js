@@ -3,6 +3,7 @@ import { MainGrid } from '../src/components/MainGrid'
 import { Box } from '../src/components/Box';
 import { DrikutMenu, OrkutNostalgicIconSet, DrikutProfileSidebarMenuDefault } from '../src/lib/DrikutCommons'
 import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations';
+import { MiniBox } from '../src/components/MiniBox';
 
 function ProfileSideBar(prop) {
   return (
@@ -66,21 +67,8 @@ export default function Home() {
     url: 'https://memegenerator.net/img/images/71597808.jpg'
   },
   ]
-  const [comunidades, setCommunity] = React.useState([{
-    id: '1254411223645411232',
-    title: 'Eu odeio acordar cedo',
-    image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg'
-  },
-  {
-    id: '1254411223645411232',
-    title: 'Deus me disse desce e arrasa',
-    image: 'https://img10.orkut.br.com/community/15cf893f0e0d466dd42da2e37d04bde6.jpeg'
-  },
-  {
-    id: '1254411223645411232',
-    title: 'A cara do filho da Deise',
-    image: 'https://i.ibb.co/4t3PJkK/download.jpg'
-  }]);
+  const [comunidades, setCommunity] = React.useState([]);
+  const [scraps, setScraps] = React.useState([]);
   const [seguidores, setSeguidores] = React.useState([]);
   React.useEffect(() => {
     fetch('https://api.github.com/users/drimmorais/followers')
@@ -90,8 +78,53 @@ export default function Home() {
       .then((resComplete) => {
         setSeguidores(resComplete);
       })
+
+    fetch('https://graphql.datocms.com/', {
+      method: 'POST',
+      headers: {
+        'Authorization': '4fd91c42ca0f5628069a7cda152116',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        "query": `query {
+            allCommunities {
+            id
+            title
+            imageurl
+            creatorslug
+          }}`})
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        const comunidadesDato = res.data.allCommunities
+        setCommunity(comunidadesDato)
+      })
+
+    fetch('https://graphql.datocms.com/', {
+      method: 'POST',
+      headers: {
+        'Authorization': '4fd91c42ca0f5628069a7cda152116',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        "query": `query {
+            allScraps{
+              id
+              scrap
+              user
+            }}`})
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        const scrapsDato = res.data.allScraps
+        setScraps(scrapsDato)
+      })
   }, [])
-  console.log(seguidores)
+
+
+
   return (
     <>
       <DrikutMenu githubUser={githubUser} />
@@ -110,19 +143,33 @@ export default function Home() {
             <form onSubmit={function handleCreateCommunity(e) {
               e.preventDefault();
               const dadosDoForm = new FormData(e.target);
-              console.log(dadosDoForm.get('title'))
-              console.log(dadosDoForm.get('image'))
+
               const newCommunit = {
-                id: new Date().toISOString(),
+                imageurl: dadosDoForm.get('image'),
+                creatorslug: githubUser,
                 title: dadosDoForm.get('title'),
-                image: dadosDoForm.get('image'),
               }
-              setCommunity([...comunidades, newCommunit])
+
+              fetch('/api/comunidades', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newCommunit)
+              })
+                .then(async (res) => {
+                  const dados = await res.json();
+                  console.log('Dados', dados)
+                  const comunidade = dados.record;
+                  setComunidades(...comunidades, comunidade)
+                })
+                .catch((e) => console.log('Erro ->', e))
+
+              //setCommunity([...comunidades, newCommunit])
             }}>
               <div>
                 <input placeholder="Qual vai ser o nome da sua comunidade?"
-                  name="title" aria-label="Qual vai ser o nome da sua comunidade?"
-                  type="text" />
+                  name="title" aria-label="Qual vai ser o nome da sua comunidade?" />
               </div>
               <div>
                 <input placeholder="Coloque uma URL para usar de capa"
@@ -133,7 +180,63 @@ export default function Home() {
               </button>
             </form>
           </Box>
+
+          <Box>
+            <h2 className="subTitle">Deixe um Scraps</h2>
+
+            <form onSubmit={function handleCreateCommunity(e) {
+              e.preventDefault();
+              const dadosDoFormScrap = new FormData(e.target);
+
+              const newScrap = {
+                scrap: dadosDoFormScrap.get('scrap'),
+                user: githubUser,
+              }
+
+              fetch('/api/scraps', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newScrap)
+              })
+                .then(async (res) => {
+                  const dados = await res.json();
+                  console.log('Dados', dados)
+                  const scrapRecord = dados.record;
+                  setScraps(...scraps, scrapRecord)
+                })
+                .catch((e) => console.log('Erro ->', e))
+            }}>
+              <div>
+                <input placeholder="Deixe aqui o seu scrap!"
+                  name="scrap" aria-label="Qual vai ser o nome da sua comunidade?" />
+              </div>
+              <button>
+                Enviar scrap
+              </button>
+            </form>
+          </Box>
+
+          <Box>
+            <h2 className="subTitle">Scraps</h2>
+            <MiniBox>
+              <ul>
+                {scraps.map((item) => {
+                  return (
+                    <li>
+                      <div className="card">
+                        <img src={`https://github.com/${item.user}.png`} />
+                        <span>{item.scrap}</span>
+                      </div>
+                    </li>
+                  )
+                })}
+              </ul>
+            </MiniBox>
+          </Box>
         </div>
+
         <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
           {boxes.map((box) => {
             return (
@@ -142,7 +245,7 @@ export default function Home() {
                 {box === 'Pessoas da Comunidade' ? <ul>
                   {favPeople.map((person) => {
                     return (
-                      <li key={person}>
+                      <li>
                         <a href={`/users/${person.name}`} >
                           <img src={person.url} />
                           <span>{person.name}</span>
@@ -156,8 +259,8 @@ export default function Home() {
                     {comunidades.map((item) => {
                       return (
                         <li>
-                          <a href={`/users/${item.title}`} key={item.id}>
-                            <img src={item.image} />
+                          <a href={`/communities/${item.id}`} key={item.id}>
+                            <img src={item.imageurl} />
                             <span>{item.title}</span>
                           </a>
                         </li>
@@ -171,7 +274,7 @@ export default function Home() {
             )
           })}
           <ProfileRelationsBoxWrapper>
-          <h2 className="smallTitle"> Seguidores ({seguidores.length})</h2>
+            <h2 className="smallTitle"> Seguidores ({seguidores.length})</h2>
             <ul>
               {seguidores.map((item) => {
                 return (
@@ -190,3 +293,4 @@ export default function Home() {
     </>
   )
 }
+
