@@ -7,6 +7,8 @@ export const MiniBox = styled.div`
   background: none;
   border-radius: 8px;
   padding: 16px;
+  overflow: auto;
+  max-height: 300px;
   /* CSS Pré-Pronto */
   margin-bottom: 10px;
   .boxLink {
@@ -45,6 +47,7 @@ export const MiniBox = styled.div`
     img{
         width: 100px;
         padding-left: 5px;
+        border-radius: 70px;
     }
     span {
       color: #5F1432;

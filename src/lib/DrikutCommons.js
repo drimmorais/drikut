@@ -35,7 +35,7 @@ export function DrikutMenu({ githubUser }) {
         </nav>
 
         <nav>
-          <a href={`/logout`}>
+          <a href={`/login`}>
             Sair
           </a>
           <div>
@@ -80,7 +80,7 @@ DrikutMenu.Wrapper = styled.header`
     }
     .boxLink {
       font-size: 18px;
-      color: #2E7BB4;
+      color: #5F1432;
       -webkit-text-decoration: none;
       text-decoration: none;
       font-weight: 800;
@@ -378,7 +378,7 @@ const DrikutLoginScreen = css`
         }
       }
       img {
-        max-height: 45px;
+        max-height: 150px;
         margin-bottom: 36px;
       }
     }
